@@ -59,6 +59,8 @@ public class HardwarePushbot
     public Servo    leftClaw    = null;
     public Servo    rightClaw   = null;
 
+    public Servo    sensorHand  = null;
+
     public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
     public static final double ARM_DOWN_POWER  = -0.45 ;
@@ -100,6 +102,10 @@ public class HardwarePushbot
         rightClaw = hwMap.get(Servo.class, "right_hand");
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
+
+        sensorHand = hwMap.get(Servo.class, "sensor_hand");
+        sensorHand.setPosition(MID_SERVO);
+
     }
  }
 
