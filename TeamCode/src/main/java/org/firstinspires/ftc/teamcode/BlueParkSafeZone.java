@@ -42,22 +42,22 @@ public class BlueParkSafeZone extends LinearOpMode {
 
         // set both motors to 25% power.
 
-        leftMotor.setPower(0.25);
-        rightMotor.setPower(0.25);
+        leftMotor.setPower(0.50);
+        rightMotor.setPower(0.50);
 
-        sleep(1000); // wait for 1 second.
+        sleep(2000); // wait for 2.5 seconds.
 
         // set motor power to 0.10.
 
         leftMotor.setPower(0.0);
-        rightMotor.setPower(0.10);
+        rightMotor.setPower(0.70);
+
+        sleep(2000);
+
+        leftMotor.setPower(0.50);
+        rightMotor.setPower(0.50);
 
         sleep(500);
-
-        leftMotor.setPower(0.10);
-        rightMotor.setPower(0.10);
-
-        sleep(300);
         
         leftMotor.setPower(0.0);
         rightMotor.setPower(0.0);
