@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
@@ -80,6 +81,9 @@ public class MyPushbotTeleopPOV_Linear extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        ///this arm is too heavy and drops due to gravity.  So, use BRAKE mode
+        robot.leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
@@ -102,14 +106,15 @@ public class MyPushbotTeleopPOV_Linear extends LinearOpMode {
             }
 
             // Output the safe vales to the motor drives.
-            robot.leftDrive.setPower(left);
-            robot.rightDrive.setPower(right);
+            //As we switched gears, robot moves too fast.  So, reduce range even more
+            robot.leftDrive.setPower(left * 0.5);
+            robot.rightDrive.setPower(right * 0.5);
 
             // Use gamepad left & right Bumpers to open and close the claw
             if (gamepad1.right_bumper)
-                clawOffset += CLAW_SPEED;
+                clawOffset = clawOffset + CLAW_SPEED;
             else if (gamepad1.left_bumper)
-                clawOffset -= CLAW_SPEED;
+                clawOffset = clawOffset - CLAW_SPEED;
 
             // Move both servos to new position.  Assume servos are mirror image of each other.
             clawOffset = Range.clip(clawOffset, -0.5, 0.5);
