@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 // below is the Annotation that registers this OpMode with the FtcRobotController app.
 // @Autonomous classifies the OpMode as autonomous, name is the OpMode title and the
@@ -15,55 +16,57 @@ public class BlueParkSafeZone extends LinearOpMode {
 
     DcMotor leftMotor;
     DcMotor rightMotor;
-
-    // called when init button is  pressed.
-
-
+    Servo leftClaw;
+    Servo rightClaw;
+    DcMotor leftArm;
     @Override
-
-
     public void runOpMode() throws InterruptedException
-
-
     {
         leftMotor = hardwareMap.dcMotor.get("left_drive");
         rightMotor = hardwareMap.dcMotor.get("right_drive");
         rightMotor.setDirection(DcMotor.Direction.REVERSE);
+        leftClaw = hardwareMap.servo.get("left_hand");
+        rightClaw = hardwareMap.servo.get("right_hand");
+        leftArm = hardwareMap.dcMotor.get("left_arm");
 
         telemetry.addData("Mode", "waiting");
         telemetry.update();
 
-// wait for start button.
-
+        // wait for start button.
         waitForStart();
 
         telemetry.addData("Mode", "running");
         telemetry.update();
 
-        // set both motors to 25% power.
+        //make the claw close on the glyph
+        leftClaw.setPosition(0.1);
+        rightClaw.setPosition(-0.1);
 
-        leftMotor.setPower(0.50);
-        rightMotor.setPower(0.50);
+        //pick the glyph of the ground
+        leftArm.setPower(0.15);
 
-        sleep(2000); // wait for 2.5 seconds.
+        // set power to both motors to drive off balance board.
+        leftMotor.setPower(0.30);
+        rightMotor.setPower(0.30);
 
-        // set motor power to 0.10.
+        // continue till we reach safe zone.
+        sleep(1300);
 
+        // turn toward crypto box
         leftMotor.setPower(0.0);
-        rightMotor.setPower(0.70);
+        rightMotor.setPower(0.25);
 
-        sleep(2000);
+        //let turn for sufficient time to face box
+        sleep(3500);
 
-        leftMotor.setPower(0.50);
-        rightMotor.setPower(0.50);
+        //drive toward crypto box to get into safe zone
+        leftMotor.setPower(0.20);
+        rightMotor.setPower(0.20);
 
         sleep(500);
-        
+
+        //stop
         leftMotor.setPower(0.0);
         rightMotor.setPower(0.0);
-
-
-
-
     }
 }
