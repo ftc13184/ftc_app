@@ -50,11 +50,11 @@ public class BlueParkSafeZone extends LinearOpMode {
         rightMotor.setPower(0.30);
 
         // continue till we reach safe zone.
-        sleep(1300);
+        sleep(1200);
 
         // turn toward crypto box
         leftMotor.setPower(0.0);
-        rightMotor.setPower(0.25);
+        rightMotor.setPower(0.85);
 
         //let turn for sufficient time to face box
         sleep(3500);

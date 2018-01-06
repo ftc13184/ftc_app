@@ -46,27 +46,30 @@ public class RedParkSafeZone extends LinearOpMode {
         rightClaw.setPosition(-0.1);
 
         //pick the glyph of the ground
-        leftArm.setPower(0.15);
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftArm.setPower(0.25);
+        sleep(400);
+        leftArm.setPower(0);
 
         // set power to both motors to drive off balance board.
         leftMotor.setPower(0.30);
         rightMotor.setPower(0.30);
 
         // continue till we reach safe zone.
-        sleep(1300);
+        sleep(1100);
 
         // turn toward crypto box
-        leftMotor.setPower(0.50);
+        leftMotor.setPower(0.25);
         rightMotor.setPower(0.0);
 
         //let turn for sufficient time to face box
-        sleep(3000);
+        sleep(1500);
 
         //drive toward crypto box to get into safe zone
         leftMotor.setPower(0.20);
         rightMotor.setPower(0.20);
 
-        sleep(500);
+        sleep(0);
 
         //stop
         leftMotor.setPower(0.0);
