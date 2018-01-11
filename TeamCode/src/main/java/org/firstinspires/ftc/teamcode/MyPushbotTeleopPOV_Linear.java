@@ -84,6 +84,10 @@ public class MyPushbotTeleopPOV_Linear extends LinearOpMode {
         ///this arm is too heavy and drops due to gravity.  So, use BRAKE mode
         robot.leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        //Use break mode on the 2 drives so that they can counteract gravity when getting onto the balance plate
+        robot.leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
@@ -104,9 +108,9 @@ public class MyPushbotTeleopPOV_Linear extends LinearOpMode {
                 left /= max;
                 right /= max;
             }
-
             // Output the safe vales to the motor drives.
             //As we switched gears, robot moves too fast.  So, reduce range even more
+
             robot.leftDrive.setPower(left * 0.5);
             robot.rightDrive.setPower(right * 0.5);
 
