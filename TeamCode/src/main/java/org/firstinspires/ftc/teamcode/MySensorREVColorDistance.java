@@ -133,12 +133,11 @@ public class MySensorREVColorDistance extends LinearOpMode {
             });
 
             //determine whether the color being detected in red or blue
-            if(sensorColor.red() > 255)
-                telemetry.addData("Red = ", sensorColor.red());
-            else if (sensorColor.blue() > 255)
-                telemetry.addData("Blue = " , sensorColor.blue());
-            else if (sensorColor.green() > 255)
-                telemetry.addData("None" , sensorColor.green());
+            if(sensorColor.red() > 57)
+                telemetry.addData("Its Red = ", sensorColor.red());
+            else if (sensorColor.blue() > 52)
+                telemetry.addData("Its Blue = " , sensorColor.blue());
+            else telemetry.addData("Its None" , sensorColor.blue());
 
             telemetry.update();
         }
