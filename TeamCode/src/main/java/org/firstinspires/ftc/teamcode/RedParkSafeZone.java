@@ -70,7 +70,7 @@ public class RedParkSafeZone extends LinearOpMode {
         rightMotor.setPower(-0.6);
 
         //let turn for sufficient time to face box
-        sleep(1300);
+        sleep(1000);
 
         //move backward
         leftMotor.setPower(-0.6);
@@ -90,18 +90,18 @@ public class RedParkSafeZone extends LinearOpMode {
         leftArm.setPower(0);
 
         //move forward
-        leftMotor.setPower(0.25);
-        rightMotor.setPower(0.25);
-        sleep(600);
+        leftMotor.setPower(0.60);
+        rightMotor.setPower(0.60);
+        sleep(800);
 
         //drop the glyph
-        leftClaw.setPosition(-0.1);
-        rightClaw.setPosition(0.1);
+        leftClaw.setPosition(-1);
+        rightClaw.setPosition(1);
 
         //move back
-        leftMotor.setPower(0.25);
-        rightMotor.setPower(0.25);
-        sleep(150);
+        leftMotor.setPower(-0.25);
+        rightMotor.setPower(-0.25);
+        sleep(200);
 
         //stop
         leftMotor.setPower(0.0);
