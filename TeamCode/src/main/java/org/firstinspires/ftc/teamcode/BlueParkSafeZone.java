@@ -70,7 +70,7 @@ public class BlueParkSafeZone extends LinearOpMode {
         rightMotor.setPower(0.6);
 
         //let turn for sufficient time to face box
-        sleep(1300);
+        sleep(800);
 
         //move backward
         leftMotor.setPower(-0.6);
@@ -84,7 +84,7 @@ public class BlueParkSafeZone extends LinearOpMode {
 
         //move center arm down
         leftArm.setPower(-0.25);
-        sleep(2000);
+        sleep(1300);
 
         //stop
         leftArm.setPower(0);
@@ -101,7 +101,7 @@ public class BlueParkSafeZone extends LinearOpMode {
         //move back
         leftMotor.setPower(-0.25);
         rightMotor.setPower(-0.25);
-        sleep(200);
+        sleep(300);
 
         //stop
         leftMotor.setPower(0.0);
