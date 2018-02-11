@@ -5,18 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import static android.R.attr.left;
-import static android.R.attr.right;
-import static com.sun.tools.javac.main.Option.D;
-
 // below is the Annotation that registers this OpMode with the FtcRobotController app.
 // @Autonomous classifies the OpMode as autonomous, name is the OpMode title and the
 // optional group places the OpMode into the Exercises group.
 // uncomment the @Disable annotation to remove the OpMode from the OpMode list.
 //Simple autonomous program that drives robot forward 5 seconds and then ends
-@Autonomous(name = "BlueParkSafeZone", group = "Exercises")
+@Autonomous(name = "RedJewelPark", group = "Exercises")
 //@Disabled
-public class BlueParkSafeZone extends LinearOpMode {
+public class RedJewelPark extends LinearOpMode {
 
     DcMotor leftMotor;
     DcMotor rightMotor;
@@ -24,6 +20,9 @@ public class BlueParkSafeZone extends LinearOpMode {
     Servo rightClaw;
     DcMotor leftArm;
     Servo sideArm;
+
+    //int RED = 0;
+    //int BLUE = 1;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -36,20 +35,27 @@ public class BlueParkSafeZone extends LinearOpMode {
         leftArm = hardwareMap.dcMotor.get("left_arm");
         sideArm = hardwareMap.servo.get("sensor_hand");
 
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        //Use break mode on the 2 drives so that they can counteract gravity when getting onto the balance plate
+        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         telemetry.addData("Mode", "waiting");
         telemetry.update();
 
         // wait for start button.
         waitForStart();
 
+        //make the claw close on the glyph
+        leftClaw.setPosition(-0.3);
+        rightClaw.setPosition(0.3);
+
         //set side arm to starting position
-        sideArm.setPosition(-0.1);
+        sideArm.setPosition(-0.4);
 
         telemetry.addData("Mode", "running");
         telemetry.update();
-
-        //put break mode
-        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //make the claw close on the glyph
         leftClaw.setPosition(0.3);
@@ -60,19 +66,28 @@ public class BlueParkSafeZone extends LinearOpMode {
         sleep(2000);
         leftArm.setPower(0);
 
+        //put the side arm down to sense the color of the jewel
+        sideArm.setPosition(0.5);
+
+        //stop
+        sleep(1000);
+
+        //knock off the jewel
+        Common.knockOffJewel( hardwareMap, telemetry);
+
         // set power to both motors to drive off balance board.
-        leftMotor.setPower(0.40);
-        rightMotor.setPower(0.40);
+        leftMotor.setPower(0.20);
+        rightMotor.setPower(0.20);
 
         // continue till we reach safe zone.
-        sleep(800);
+        sleep(1300);
 
         // turn toward crypto box
-        leftMotor.setPower(-0.8);
-        rightMotor.setPower(0.8);
+        leftMotor.setPower(0.8);
+        rightMotor.setPower(-0.8);
 
         //let turn for sufficient time to face box
-        sleep(1000);
+        sleep(1300);
 
         //move backward
         leftMotor.setPower(-0.6);
@@ -97,16 +112,26 @@ public class BlueParkSafeZone extends LinearOpMode {
         sleep(600);
 
         //drop the glyph
-        leftClaw.setPosition(-0.75);
-        rightClaw.setPosition(0.75);
+        leftClaw.setPosition(-0.5);
+        rightClaw.setPosition(0.5);
 
         //move back
         leftMotor.setPower(-0.25);
         rightMotor.setPower(-0.25);
-        sleep(300);
+        sleep(400);
 
         //stop
         leftMotor.setPower(0.0);
         rightMotor.setPower(0.0);
+
+        sleep(200);
+
+        //lift arm so that it is clear of the glyph
+        leftArm.setPower(0.4);
+        sleep(500);
+
+        //stop the arm
+        leftArm.setPower(0);
     }
+
 }

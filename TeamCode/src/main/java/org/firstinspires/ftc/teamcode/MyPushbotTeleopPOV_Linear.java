@@ -33,9 +33,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
+
+import static com.sun.tools.javac.main.Option.D;
 
 /**
  * This OpMode uses the common Pushbot hardware class to define the devices on the robot.
@@ -87,6 +90,9 @@ public class MyPushbotTeleopPOV_Linear extends LinearOpMode {
         //Use break mode on the 2 drives so that they can counteract gravity when getting onto the balance plate
         robot.leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         robot.rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        //freeze the side arm so that it doesn't fall due to gravity
+        robot.sensorHand.setPosition(-0.1);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {

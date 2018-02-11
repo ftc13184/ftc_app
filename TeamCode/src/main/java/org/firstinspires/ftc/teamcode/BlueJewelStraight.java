@@ -5,18 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import static android.R.attr.left;
-import static android.R.attr.right;
-import static com.sun.tools.javac.main.Option.D;
-
 // below is the Annotation that registers this OpMode with the FtcRobotController app.
 // @Autonomous classifies the OpMode as autonomous, name is the OpMode title and the
 // optional group places the OpMode into the Exercises group.
 // uncomment the @Disable annotation to remove the OpMode from the OpMode list.
 //Simple autonomous program that drives robot forward 5 seconds and then ends
-@Autonomous(name = "BlueParkSafeZone", group = "Exercises")
+@Autonomous(name = "BlueJewelStraight", group = "Exercises")
 //@Disabled
-public class BlueParkSafeZone extends LinearOpMode {
+public class BlueJewelStraight extends LinearOpMode {
 
     DcMotor leftMotor;
     DcMotor rightMotor;
@@ -39,6 +35,12 @@ public class BlueParkSafeZone extends LinearOpMode {
         telemetry.addData("Mode", "waiting");
         telemetry.update();
 
+        //Use break mode on the 2 drives so that they can counteract gravity when getting onto the balance plate
+        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //put break mode
+        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         // wait for start button.
         waitForStart();
 
@@ -47,9 +49,6 @@ public class BlueParkSafeZone extends LinearOpMode {
 
         telemetry.addData("Mode", "running");
         telemetry.update();
-
-        //put break mode
-        leftArm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //make the claw close on the glyph
         leftClaw.setPosition(0.3);
@@ -60,6 +59,20 @@ public class BlueParkSafeZone extends LinearOpMode {
         sleep(2000);
         leftArm.setPower(0);
 
+        //put the side arm down to sense the color of the jewel
+        sideArm.setPosition(0.5);
+
+        //stop
+        sleep(1000);
+
+        // knock off the jewel
+        Common.knockOffJewel( hardwareMap, telemetry);
+
+        //turn left to face cryptobox
+        leftMotor.setPower(0.00);
+        rightMotor.setPower(0.60);
+        sleep(225);
+
         // set power to both motors to drive off balance board.
         leftMotor.setPower(0.40);
         rightMotor.setPower(0.40);
@@ -67,38 +80,26 @@ public class BlueParkSafeZone extends LinearOpMode {
         // continue till we reach safe zone.
         sleep(800);
 
-        // turn toward crypto box
-        leftMotor.setPower(-0.8);
-        rightMotor.setPower(0.8);
+        //stop
+        leftMotor.setPower(0.0);
+        rightMotor.setPower(0.0);
 
-        //let turn for sufficient time to face box
-        sleep(1000);
+        //put the arm down
+        leftArm.setPower(-0.25);
+        sleep(1300);
 
-        //move backward
-        leftMotor.setPower(-0.6);
-        rightMotor.setPower(-0.6);
-
+        //continue push in the glyph
+        leftMotor.setPower(0.20);
+        rightMotor.setPower(0.20);
         sleep(400);
 
         //stop
         leftMotor.setPower(0.0);
         rightMotor.setPower(0.0);
 
-        //move center arm down
-        leftArm.setPower(-0.25);
-        sleep(1300);
-
-        //stop
-        leftArm.setPower(0);
-
-        //move forward
-        leftMotor.setPower(0.60);
-        rightMotor.setPower(0.60);
-        sleep(600);
-
         //drop the glyph
-        leftClaw.setPosition(-0.75);
-        rightClaw.setPosition(0.75);
+        leftClaw.setPosition(-1);
+        rightClaw.setPosition(1);
 
         //move back
         leftMotor.setPower(-0.25);
@@ -108,5 +109,14 @@ public class BlueParkSafeZone extends LinearOpMode {
         //stop
         leftMotor.setPower(0.0);
         rightMotor.setPower(0.0);
+
+        sleep(200);
+
+        //lift arm so that it is clear of the glyph
+        leftArm.setPower(0.4);
+        sleep(500);
+
+        //stop the arm
+        leftArm.setPower(0);
     }
 }

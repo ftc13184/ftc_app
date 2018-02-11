@@ -132,12 +132,33 @@ public class MySensorREVColorDistance extends LinearOpMode {
                 }
             });
 
-            //determine whether the color being detected in red or blue
-            if(sensorColor.red() > 57)
-                telemetry.addData("Its Red = ", sensorColor.red());
-            else if (sensorColor.blue() > 52)
-                telemetry.addData("Its Blue = " , sensorColor.blue());
-            else telemetry.addData("Its None" , sensorColor.blue());
+            int redCount =0;
+            int blueCount =0;
+            for(int i = 0; i<5; i++)
+            {
+
+                // Sense the color
+                // get a reference to the color sensor.
+                ColorSensor mySensorColor = hardwareMap.get(ColorSensor.class, "color_sensor");
+
+                // get a reference to the distance sensor that shares the same name.
+                DistanceSensor mySensorDistance = hardwareMap.get(DistanceSensor.class, "color_sensor");
+
+                // Determine if red or blue based on what the color sensor detects
+                if(mySensorColor.red() > 57) {
+                    telemetry.addData("Its Red = ", mySensorColor.red());
+                    redCount++;
+                }
+                else if (mySensorColor.blue() > 52) {
+                    telemetry.addData("Its Blue = ", mySensorColor.blue());
+                    blueCount++;
+                }
+                else telemetry.addData("Its None" , mySensorColor.blue());
+
+                // Increment the color counter according to what color is sensed
+            }
+
+            //determine whether the color being detected is red or blue
 
             telemetry.update();
         }

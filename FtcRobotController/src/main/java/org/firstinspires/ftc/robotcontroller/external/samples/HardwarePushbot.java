@@ -34,6 +34,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import static android.os.Build.VERSION_CODES.M;
+
 /**
  * This is NOT an opmode.
  *
@@ -58,8 +60,7 @@ public class HardwarePushbot
     public DcMotor  leftArm     = null;
     public Servo    leftClaw    = null;
     public Servo    rightClaw   = null;
-
-    //public Servo    sensorHand  = null;
+    public Servo    sensorHand  = null;
 
     public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
@@ -100,10 +101,10 @@ public class HardwarePushbot
         // Define and initialize ALL installed servos.
         leftClaw  = hwMap.get(Servo.class, "left_hand");
         rightClaw = hwMap.get(Servo.class, "right_hand");
-        //sensorHand = hwMap.get(Servo.class, "sensor_hand");
+        sensorHand = hwMap.get(Servo.class, "sensor_hand");
         leftClaw.setPosition(MID_SERVO);
         rightClaw.setPosition(MID_SERVO);
-        //sensorHand.setPosition(MID_SERVO);
+        sensorHand.setPosition(MID_SERVO);
     }
  }
 
