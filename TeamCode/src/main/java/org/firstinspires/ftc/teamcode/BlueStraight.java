@@ -16,7 +16,7 @@ import static android.R.transition.move;
 //Simple autonomous program that drives robot forward 5 seconds and then ends
 @Autonomous(name = "BlueStraight", group = "Exercises")
 //@Disabled
-public class BlueStraight extends LinearOpMode {
+public class BlueStraight extends LinearOpMode{
 
     DcMotor leftMotor;
     DcMotor rightMotor;

@@ -61,6 +61,8 @@ public class HardwarePushbot
     public Servo    leftClaw    = null;
     public Servo    rightClaw   = null;
     public Servo    sensorHand  = null;
+    public DcMotor  linearLatch = null;
+    //public Servo    leftTwist   =
 
     public static final double MID_SERVO       =  0.5 ;
     public static final double ARM_UP_POWER    =  0.45 ;
@@ -84,6 +86,7 @@ public class HardwarePushbot
         leftDrive  = hwMap.get(DcMotor.class, "left_drive");
         rightDrive = hwMap.get(DcMotor.class, "right_drive");
         leftArm    = hwMap.get(DcMotor.class, "left_arm");
+        linearLatch = hwMap.get(DcMotor.class, "linear_latch");
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
